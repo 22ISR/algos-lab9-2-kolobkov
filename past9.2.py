@@ -4,19 +4,24 @@ root.geometry("800x500")
 root.title("Моя программа")
 
 def on_button_click(value):
-    if value == "=":
-        result = eval(textbox.get("1.0", tk.END))
-        textbox.delete("1.0", tk.END)
-        textbox.insert(tk.END, result)
-    elif value == "clear":
-        print("clear")
-        textbox.delete("1.0", tk.END) 
+    try:
+        if value == "=":
+            result = eval(textbox.get("1.0", tk.END))
+            textbox.delete("1.0", tk.END)
+            textbox.insert(tk.END, result)
+        elif value == "clear":
+            print("clear")
+            textbox.delete("1.0", tk.END) 
+        else:
+            print(value)
+            textbox.insert(tk.END, value + "")
     
-    else:
-        print(value)
-        textbox.insert(tk.END, value + "")
-
-
+    except ZeroDivisionError:
+        
+        textbox.delete("1.0", tk.END)
+        textbox.insert(tk.END, "Error")
+        print("Ошибка: Деление на ноль!")
+        
 label = tk.Label(root, text="Калькулятор", font=("Arial", 18))
 label.pack(padx=20, pady=20)
 
